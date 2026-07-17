@@ -24,7 +24,10 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.bigblackcat.levelup"
-    compileSdk flutter.compileSdkVersion
+    // Hardcoded rather than left as `flutter.compileSdkVersion` so the
+    // value is deterministic across machines/CI runners and always matches
+    // the rootProject.ext shim above (which some plugins still read from).
+    compileSdk 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -45,7 +48,7 @@ android {
         // https://developer.android.com/studio/build/application-id
         applicationId "com.bigblackcat.levelup"
         minSdkVersion 23
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

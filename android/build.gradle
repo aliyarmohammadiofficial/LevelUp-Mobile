@@ -1,21 +1,32 @@
-buildscript {
-    ext.kotlin_version = "1.9.10"
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:8.1.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+// NOTE: AGP and Kotlin versions are declared once, in settings.gradle's
+// `plugins {}` block (the modern Flutter/Gradle convention). Do NOT also
+// declare a `buildscript { classpath "com.android.tools.build:gradle:..." }`
+// block here — having both is what produced a mismatched/duplicate AGP
+// classpath on some CI runners and contributed to the ":app_links"
+// configuration failure. Keep AGP/Kotlin versions in exactly one place.
 
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
+}
+
+// --- Backward-compatibility shim ---------------------------------------
+// Some third-party Flutter plugins (older releases of app_links being the
+// concrete case here) still read compile/target/min SDK values from
+// `rootProject.ext.*` instead of the newer `flutter.compileSdkVersion`
+// project extension that the Flutter Gradle plugin now provides. Modern
+// Flutter templates stopped defining those `rootProject.ext` values, so any
+// plugin still relying on them gets `null`, and AGP's internal parsing
+// then throws `Cannot invoke method substring() on null object` /
+// "compileSdkVersion is not specified". Defining them here restores the
+// old convention for any plugin (present or future) that still expects it,
+// without needing to patch anything inside .pub-cache.
+rootProject.ext {
+    compileSdkVersion = 34
+    targetSdkVersion = 34
+    minSdkVersion = 23
 }
 
 rootProject.buildDir = "../build"

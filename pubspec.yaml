@@ -66,6 +66,22 @@ dev_dependencies:
   riverpod_generator: ^2.4.0
   hive_generator: ^2.0.1
 
+# Force a modern, AGP-8-compatible resolution of app_links.
+#
+# supabase_flutter (used for the OAuth deep-link redirect) transitively
+# depends on app_links. The version supabase_flutter ^2.5.6 pulls in
+# predates app_links declaring its own `compileSdk`/`namespace` in its
+# android/build.gradle — it instead reads `rootProject.ext.compileSdkVersion`,
+# which modern Flutter app templates no longer define. That mismatch is the
+# root cause of:
+#   "A problem occurred configuring project ':app_links' ...
+#    compileSdkVersion is not specified."
+#
+# Overriding to a current app_links release (which sets compileSdk itself)
+# fixes the plugin at the source rather than only working around it.
+dependency_overrides:
+  app_links: ^6.3.3
+
 flutter:
   uses-material-design: true
 
