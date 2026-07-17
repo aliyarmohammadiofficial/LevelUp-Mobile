@@ -11,8 +11,10 @@ class PushNotificationService {
   static final PushNotificationService instance =
       PushNotificationService._();
 
+
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
+
 
   bool _initialized = false;
 
@@ -20,13 +22,18 @@ class PushNotificationService {
   void Function(int?)? onTap;
 
 
+
   static const String _channelId = 'levelup_default';
+
   static const String _channelName = 'LevelUp';
+
   static const String _channelDescription =
       'Reminders and activity notifications';
 
 
+
   Future<void> init() async {
+
     if (_initialized) return;
 
 
@@ -34,10 +41,13 @@ class PushNotificationService {
 
 
     const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
 
 
-    const iosSettings = DarwinInitializationSettings(
+    const iosSettings =
+        DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
@@ -52,13 +62,18 @@ class PushNotificationService {
 
     await _plugin.initialize(
       settings,
-      onDidReceiveNotificationResponse: (response) {
+      onDidReceiveNotificationResponse:
+          (response) {
+
         onTap?.call(response.id);
+
       },
     );
 
 
-    const channel = AndroidNotificationChannel(
+
+    const channel =
+        AndroidNotificationChannel(
       _channelId,
       _channelName,
       description: _channelDescription,
@@ -72,41 +87,56 @@ class PushNotificationService {
         ?.createNotificationChannel(channel);
 
 
+
     _initialized = true;
   }
 
 
 
+
+
+
   Future<bool> requestPermission() async {
 
-    final result = await Permission.notification.request();
+    final result =
+        await Permission.notification.request();
 
     return result.isGranted;
   }
 
 
 
+
+
   Future<bool> get hasPermission async {
+
     return Permission.notification.isGranted;
+
   }
+
+
+
+
 
 
 
   NotificationDetails get _details {
 
-
     return const NotificationDetails(
 
-      android: AndroidNotificationDetails(
+      android:
+          AndroidNotificationDetails(
         _channelId,
         _channelName,
-        channelDescription: _channelDescription,
+        channelDescription:
+            _channelDescription,
         importance: Importance.high,
         priority: Priority.high,
       ),
 
 
-      iOS: DarwinNotificationDetails(
+      iOS:
+          DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,
@@ -119,14 +149,24 @@ class PushNotificationService {
 
 
 
+
+
+
   Future<void> showNow({
+
     required int id,
+
     required String title,
+
     required String body,
+
   }) async {
 
+
     if (!_initialized) {
+
       await init();
+
     }
 
 
@@ -136,6 +176,7 @@ class PushNotificationService {
       body,
       _details,
     );
+
   }
 
 
@@ -143,18 +184,30 @@ class PushNotificationService {
 
 
 
+
+
+
   Future<void> scheduleDaily({
+
     required int id,
+
     required String title,
+
     required String body,
+
     required int hour,
+
     required int minute,
+
   }) async {
 
 
     if (!_initialized) {
+
       await init();
+
     }
+
 
 
     await _plugin.zonedSchedule(
@@ -165,24 +218,25 @@ class PushNotificationService {
 
       body,
 
-      _nextTime(hour, minute),
+      _nextTime(
+        hour,
+        minute,
+      ),
+
 
       _details,
 
 
       androidScheduleMode:
-          AndroidScheduleMode.exactAllowWhileIdle,
+          AndroidScheduleMode
+              .exactAllowWhileIdle,
 
 
       matchDateTimeComponents:
           DateTimeComponents.time,
 
-
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation
-              .absoluteTime,
-
     );
+
   }
 
 
@@ -191,18 +245,29 @@ class PushNotificationService {
 
 
 
+
+
   Future<void> scheduleWeekly({
+
     required int id,
+
     required String title,
+
     required String body,
+
     required int weekday,
+
     required int hour,
+
     required int minute,
+
   }) async {
 
 
     if (!_initialized) {
+
       await init();
+
     }
 
 
@@ -226,19 +291,79 @@ class PushNotificationService {
 
 
       androidScheduleMode:
-          AndroidScheduleMode.exactAllowWhileIdle,
+          AndroidScheduleMode
+              .exactAllowWhileIdle,
 
 
       matchDateTimeComponents:
-          DateTimeComponents.dayOfWeekAndTime,
-
-
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation
-              .absoluteTime,
+          DateTimeComponents
+              .dayOfWeekAndTime,
 
     );
+
   }
+
+
+
+
+
+
+
+
+
+
+  Future<void> scheduleEveryNHours({
+
+    required int id,
+
+    required String title,
+
+    required String body,
+
+    required int hours,
+
+    required int firstHour,
+
+    required int firstMinute,
+
+  }) async {
+
+
+
+    if (!_initialized) {
+
+      await init();
+
+    }
+
+
+
+    await _plugin.periodicallyShow(
+
+      id,
+
+      title,
+
+      body,
+
+
+      RepeatInterval.hourly,
+
+
+      _details,
+
+
+      androidScheduleMode:
+          AndroidScheduleMode
+              .inexactAllowWhileIdle,
+
+    );
+
+  }
+
+
+
+
 
 
 
@@ -246,12 +371,19 @@ class PushNotificationService {
 
   Future<void> cancel(int id) async {
 
+
     if (!_initialized) {
+
       await init();
+
     }
 
+
     await _plugin.cancel(id);
+
   }
+
+
 
 
 
@@ -259,12 +391,19 @@ class PushNotificationService {
 
   Future<void> cancelAll() async {
 
+
     if (!_initialized) {
+
       await init();
+
     }
 
+
     await _plugin.cancelAll();
+
   }
+
+
 
 
 
@@ -278,27 +417,39 @@ class PushNotificationService {
       ) {
 
 
-    final now = tz.TZDateTime.now(tz.local);
+    final now =
+        tz.TZDateTime.now(
+          tz.local,
+        );
 
 
-    var date = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      hour,
-      minute,
-    );
+
+    var date =
+        tz.TZDateTime(
+          tz.local,
+          now.year,
+          now.month,
+          now.day,
+          hour,
+          minute,
+        );
 
 
-    if(date.isBefore(now)){
-      date = date.add(
-        const Duration(days:1),
-      );
+
+    if (date.isBefore(now)) {
+
+      date =
+          date.add(
+            const Duration(
+              days: 1,
+            ),
+          );
+
     }
 
 
     return date;
+
   }
 
 
@@ -307,28 +458,42 @@ class PushNotificationService {
 
 
 
-  tz.TZDateTime _nextWeekday(
-      int weekday,
-      int hour,
-      int minute,
-      ){
 
-    var date = _nextTime(
-      hour,
-      minute,
-    );
+
+
+  tz.TZDateTime _nextWeekday(
+
+      int weekday,
+
+      int hour,
+
+      int minute,
+
+      ) {
+
+
+    var date =
+        _nextTime(
+          hour,
+          minute,
+        );
+
 
 
     while(date.weekday != weekday){
 
-      date = date.add(
-        const Duration(days:1),
-      );
+      date =
+          date.add(
+            const Duration(
+              days:1,
+            ),
+          );
 
     }
 
 
     return date;
+
   }
 
 }
@@ -338,7 +503,9 @@ class PushNotificationService {
 
 
 
+
 abstract class NotificationIds {
+
 
   static const workoutReminder = 1001;
 
@@ -351,6 +518,7 @@ abstract class NotificationIds {
   static const weeklyReportReminder = 1005;
 
 
+
   static const waterGoalMet = 2001;
 
   static const workoutCompleted = 2002;
@@ -360,5 +528,6 @@ abstract class NotificationIds {
   static const streakMilestone = 2004;
 
   static const levelUp = 2005;
+
 
 }
