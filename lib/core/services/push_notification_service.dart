@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest_all.dart' as tz_data;
@@ -40,6 +39,7 @@ class PushNotificationService {
     tz_data.initializeTimeZones();
 
 
+
     const androidSettings =
         AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -54,10 +54,13 @@ class PushNotificationService {
     );
 
 
-    const settings = InitializationSettings(
+
+    const settings =
+        InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
     );
+
 
 
     await _plugin.initialize(
@@ -81,6 +84,7 @@ class PushNotificationService {
     );
 
 
+
     await _plugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -89,8 +93,8 @@ class PushNotificationService {
 
 
     _initialized = true;
-  }
 
+  }
 
 
 
@@ -101,9 +105,10 @@ class PushNotificationService {
     final result =
         await Permission.notification.request();
 
-    return result.isGranted;
-  }
 
+    return result.isGranted;
+
+  }
 
 
 
@@ -118,9 +123,8 @@ class PushNotificationService {
 
 
 
-
-
   NotificationDetails get _details {
+
 
     return const NotificationDetails(
 
@@ -143,9 +147,8 @@ class PushNotificationService {
       ),
 
     );
+
   }
-
-
 
 
 
@@ -170,16 +173,20 @@ class PushNotificationService {
     }
 
 
+
     await _plugin.show(
+
       id,
+
       title,
+
       body,
+
       _details,
+
     );
 
   }
-
-
 
 
 
@@ -210,6 +217,7 @@ class PushNotificationService {
 
 
 
+
     await _plugin.zonedSchedule(
 
       id,
@@ -223,23 +231,20 @@ class PushNotificationService {
         minute,
       ),
 
-
       _details,
 
 
       androidScheduleMode:
-          AndroidScheduleMode
-              .exactAllowWhileIdle,
+          AndroidScheduleMode.exactAllowWhileIdle,
 
 
       matchDateTimeComponents:
           DateTimeComponents.time,
 
+
     );
 
   }
-
-
 
 
 
@@ -264,11 +269,13 @@ class PushNotificationService {
   }) async {
 
 
+
     if (!_initialized) {
 
       await init();
 
     }
+
 
 
 
@@ -286,25 +293,20 @@ class PushNotificationService {
         minute,
       ),
 
-
       _details,
 
 
       androidScheduleMode:
-          AndroidScheduleMode
-              .exactAllowWhileIdle,
+          AndroidScheduleMode.exactAllowWhileIdle,
 
 
       matchDateTimeComponents:
-          DateTimeComponents
-              .dayOfWeekAndTime,
+          DateTimeComponents.dayOfWeekAndTime,
+
 
     );
 
   }
-
-
-
 
 
 
@@ -354,14 +356,12 @@ class PushNotificationService {
 
 
       androidScheduleMode:
-          AndroidScheduleMode
-              .inexactAllowWhileIdle,
+          AndroidScheduleMode.inexactAllowWhileIdle,
+
 
     );
 
   }
-
-
 
 
 
@@ -410,11 +410,14 @@ class PushNotificationService {
 
 
 
-
   tz.TZDateTime _nextTime(
-      int hour,
-      int minute,
-      ) {
+
+    int hour,
+
+    int minute,
+
+  ) {
+
 
 
     final now =
@@ -436,16 +439,17 @@ class PushNotificationService {
 
 
 
-    if (date.isBefore(now)) {
+    if(date.isBefore(now)) {
 
       date =
           date.add(
             const Duration(
-              days: 1,
+              days:1,
             ),
           );
 
     }
+
 
 
     return date;
@@ -458,18 +462,16 @@ class PushNotificationService {
 
 
 
-
-
-
   tz.TZDateTime _nextWeekday(
 
-      int weekday,
+    int weekday,
 
-      int hour,
+    int hour,
 
-      int minute,
+    int minute,
 
-      ) {
+  ) {
+
 
 
     var date =
@@ -480,7 +482,8 @@ class PushNotificationService {
 
 
 
-    while(date.weekday != weekday){
+    while(date.weekday != weekday) {
+
 
       date =
           date.add(
@@ -490,6 +493,7 @@ class PushNotificationService {
           );
 
     }
+
 
 
     return date;
