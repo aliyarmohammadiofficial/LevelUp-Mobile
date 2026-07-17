@@ -80,7 +80,7 @@ dev_dependencies:
 # Overriding to a current app_links release (which sets compileSdk itself)
 # fixes the plugin at the source rather than only working around it.
 dependency_overrides:
-  app_links: ^6.3.3
+  app_links: 6.3.3
 
 flutter:
   uses-material-design: true
