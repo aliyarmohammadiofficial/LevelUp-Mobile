@@ -2,7 +2,9 @@ name: Build APK
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -16,14 +18,14 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '17'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.5'
-          channel: 'stable'
+          channel: stable
           cache: true
 
       - name: Clean
@@ -32,13 +34,13 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Generate code (build_runner)
-        run: flutter packages pub run build_runner build --delete-conflicting-outputs
+      - name: Generate code
+        run: dart run build_runner build --delete-conflicting-outputs
 
-      - name: Build release APK
+      - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: levelup-release-apk
