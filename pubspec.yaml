@@ -1,99 +1,148 @@
 name: levelup
 description: "LevelUp — Level up your health, one day at a time."
 publish_to: "none"
+
 version: 0.1.0+1
 
+
 environment:
-  sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
+  sdk: ">=3.8.0 <4.0.0"
+  flutter: ">=3.32.0"
+
 
 dependencies:
+
   flutter:
     sdk: flutter
 
+
   # State management
-  flutter_riverpod: ^2.5.1
-  riverpod_annotation: ^2.3.5
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
 
   # Routing
-  go_router: ^14.2.0
+  go_router: ^15.1.2
 
-  # Backend / persistence
-  supabase_flutter: ^2.5.6
-  firebase_core: ^3.3.0
-  firebase_auth: ^5.1.4
-  firebase_messaging: ^15.0.4
+
+  # Backend
+  supabase_flutter: ^2.9.0
+
+  firebase_core: ^3.13.1
+  firebase_auth: ^5.5.1
+  firebase_messaging: ^15.2.5
+
+
+  # Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.5.3
 
-  # Local (on-device) push notifications for reminders + real-time app events
-  flutter_local_notifications: ^17.2.2
-  timezone: ^0.9.4
-  permission_handler: ^11.3.1
+
+
+  # Notifications
+
+  flutter_local_notifications: ^19.1.0
+
+  timezone: ^0.10.0
+
+  permission_handler: ^12.0.0
+
+
+
+  # Deep links
+
+  app_links: ^6.4.1
+
+
 
   # Networking
-  dio: ^5.4.3+1
 
-  # Modeling / codegen
-  freezed_annotation: ^2.4.4
+  dio: ^5.8.0+1
+
+
+
+  # Models / Code generation
+
+  freezed_annotation: ^3.0.0
+
   json_annotation: ^4.9.0
 
-  # UI / typography
+
+
+  # UI
+
   google_fonts: ^6.2.1
+
   cupertino_icons: ^1.0.8
 
-  # Motion
-  lottie: ^3.1.2
-  flutter_animate: ^4.5.0
-  rive: ^0.13.13
+
+
+  # Animation
+
+  lottie: ^3.3.1
+
+  flutter_animate: ^4.5.2
+
+  rive: ^0.13.20
+
+
 
   # Utilities
-  intl: ^0.19.0
-  equatable: ^2.0.5
-  flutter_svg: ^2.0.10+1
-  fl_chart: ^0.68.0
+
+  intl: ^0.20.2
+
+  equatable: ^2.0.7
+
+  flutter_svg: ^2.1.0
+
+  fl_chart: ^0.71.0
+
+
+
 
 dev_dependencies:
+
+
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
 
-  # Codegen
-  build_runner: ^2.4.11
-  freezed: ^2.5.2
-  json_serializable: ^6.8.0
-  riverpod_generator: ^2.4.0
+
+  flutter_lints: ^6.0.0
+
+
+
+  # Code generation
+
+  build_runner: ^2.4.15
+
+  freezed: ^3.0.6
+
+  json_serializable: ^6.9.5
+
+  riverpod_generator: ^2.6.5
+
   hive_generator: ^2.0.1
 
-# Force a modern, AGP-8-compatible resolution of app_links.
-#
-# supabase_flutter (used for the OAuth deep-link redirect) transitively
-# depends on app_links. The version supabase_flutter ^2.5.6 pulls in
-# predates app_links declaring its own `compileSdk`/`namespace` in its
-# android/build.gradle — it instead reads `rootProject.ext.compileSdkVersion`,
-# which modern Flutter app templates no longer define. That mismatch is the
-# root cause of:
-#   "A problem occurred configuring project ':app_links' ...
-#    compileSdkVersion is not specified."
-#
-# Overriding to a current app_links release (which sets compileSdk itself)
-# fixes the plugin at the source rather than only working around it.
+
+
+
 dependency_overrides:
-  app_links: 6.3.3
+
+  # Fix Android AGP / Flutter 3.32 compatibility
+
+  app_links: ^6.4.1
+
+
 
 flutter:
+
   uses-material-design: true
 
+
   assets:
+
     - assets/images/
     - assets/icons/
     - assets/illustrations/
     - assets/animations/
-
-  # Fonts (Baloo 2 + Inter) are loaded at runtime via google_fonts, which
-  # downloads and caches the correct weights on first use and bundles them
-  # for offline use after that — no local .ttf files required. If fully
-  # offline first-launch is a hard requirement later, switch to local
-  # `fonts:` entries here and point AppTypography at the bundled family
-  # names instead of GoogleFonts.*TextTheme().
