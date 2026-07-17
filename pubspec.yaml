@@ -120,9 +120,9 @@ dev_dependencies:
 
   json_serializable: ^6.9.5
 
-  riverpod_generator: ^2.6.5
+  riverpod_generator: ^2.6.3
 
-  hive_generator: ^2.0.1
+  hive_generator: ^2.0.0
 
 
 
