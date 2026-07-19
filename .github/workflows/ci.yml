@@ -3,8 +3,10 @@ name: CI
 on:
   push:
     branches: [main]
+
   pull_request:
     branches: [main]
+
   workflow_dispatch:
 
 env:
@@ -14,6 +16,7 @@ jobs:
   build:
     name: Analyze, test, and build release APK
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,13 +53,10 @@ jobs:
         run: flutter test
 
       - name: Build release APK
-        # SUPABASE_URL / SUPABASE_ANON_KEY are read from --dart-define at build
-        # time (see lib/main.dart). Add matching repository secrets for a real
-        # release build; the app still builds and runs without them (auth
-        # calls just fail until they're supplied), so CI stays green either way.
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
         run: |
           flutter build apk --release \
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
