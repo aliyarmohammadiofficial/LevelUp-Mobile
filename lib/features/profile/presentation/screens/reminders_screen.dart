@@ -81,7 +81,7 @@ class RemindersScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Mascot(pose: MascotPose.wink, size: 48, animate: false),
+                    const Mascot(pose: MascotPose.wink, size: 48, animated: false),
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Text(

@@ -16,19 +16,23 @@ class Mascot extends StatelessWidget {
     super.key,
     this.pose = MascotPose.wave,
     this.size = 120,
-    this.animate = true,
+    this.animated = true,
   });
 
   final MascotPose pose;
   final double size;
-  final bool animate;
+  // Note: intentionally not named `animate` — that would shadow the
+  // flutter_animate extension's `.animate()` method on Widget and cause
+  // `invocation_of_non_function_expression` wherever a Mascot instance is
+  // chained with `.animate()...` for entrance animations.
+  final bool animated;
 
   @override
   Widget build(BuildContext context) {
     final painter = _MascotPainter(pose: pose);
     final child = CustomPaint(size: Size.square(size), painter: painter);
 
-    if (!animate) return child;
+    if (!animated) return child;
 
     return _MascotIdleAnimation(pose: pose, child: child);
   }

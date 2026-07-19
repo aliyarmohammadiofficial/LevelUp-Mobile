@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../../onboarding/data/datasources/onboarding_local_datasource.dart';
 import '../../domain/entities/progress_summary.dart';
 

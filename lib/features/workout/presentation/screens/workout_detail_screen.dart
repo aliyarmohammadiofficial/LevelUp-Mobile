@@ -107,7 +107,7 @@ class WorkoutDetailScreen extends ConsumerWidget {
                             ],
                           ),
                         ),
-                        const Mascot(pose: MascotPose.celebrate, size: 56, animate: false),
+                        const Mascot(pose: MascotPose.celebrate, size: 56, animated: false),
                       ],
                     ),
                   ).animate().fadeIn(duration: AppMotion.standard).slideY(

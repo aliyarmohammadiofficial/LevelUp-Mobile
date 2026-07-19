@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../../../core/services/push_notification_service.dart';
 import '../../../notifications/data/datasources/notifications_local_datasource.dart';
 import '../../../notifications/domain/entities/app_notification.dart';

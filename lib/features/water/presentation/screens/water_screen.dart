@@ -119,7 +119,7 @@ class WaterScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        const Mascot(pose: MascotPose.celebrate, size: 44, animate: false),
+                        const Mascot(pose: MascotPose.celebrate, size: 44, animated: false),
                         const SizedBox(width: AppSpacing.md),
                         Expanded(
                           child: Text(

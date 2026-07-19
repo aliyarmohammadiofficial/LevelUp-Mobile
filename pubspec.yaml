@@ -1,15 +1,13 @@
 name: levelup
-
 description: "LevelUp — Level up your health, one day at a time."
-
 publish_to: "none"
 
 version: 0.1.0+1
 
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: ">=3.32.0"
+  sdk: ">=3.9.0 <4.0.0"
+  flutter: ">=3.35.0"
 
 
 dependencies:
@@ -18,9 +16,8 @@ dependencies:
     sdk: flutter
 
 
-  # State Management
+  # State management
   flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
 
 
   # Routing
@@ -35,47 +32,70 @@ dependencies:
   firebase_messaging: ^15.2.5
 
 
-  # Local Storage
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
+  # Storage
+  #
+  # `hive` / `hive_flutter` have had no releases in years and predate
+  # current Dart SDK constraints. Nothing in this project uses generated
+  # TypeAdapters (@HiveType/@HiveField) — every box here just stores plain
+  # values — so the switch to `hive_ce` / `hive_ce_flutter` (the actively
+  # maintained community continuation, API-compatible for this usage) is a
+  # drop-in import-path change with no behavior change.
+  hive_ce: ^2.8.0
+  hive_ce_flutter: ^2.1.0
   shared_preferences: ^2.5.3
 
 
+
   # Notifications
+
   flutter_local_notifications: ^19.1.0
+
   timezone: ^0.10.0
+
   permission_handler: ^12.0.0
 
 
-  # Deep Links
+
+  # Deep links
+
   app_links: ^6.4.1
 
 
+
   # Networking
+
   dio: ^5.8.0+1
 
 
-  # Models
-  freezed_annotation: ^3.0.0
-  json_annotation: ^4.9.0
-
 
   # UI
+
   google_fonts: ^6.2.1
+
   cupertino_icons: ^1.0.8
 
 
+
   # Animation
+
   lottie: ^3.3.1
+
   flutter_animate: ^4.5.2
+
   rive: ^0.13.20
 
 
+
   # Utilities
+
   intl: ^0.20.2
+
   equatable: ^2.0.7
+
   flutter_svg: ^2.1.0
+
   fl_chart: ^0.71.0
+
 
 
 
@@ -89,21 +109,18 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 
-  # Code Generation
-
-  build_runner: ^2.4.15
-
-  freezed: ^3.0.6
-
-  json_serializable: ^6.9.5
-
-  riverpod_generator: ^2.6.5
-
+  # NOTE: `build_runner`, `freezed`(+`freezed_annotation`),
+  # `json_serializable`(+`json_annotation`), `riverpod_generator`, and
+  # `hive_generator` were removed here — nothing in lib/ uses @freezed,
+  # @riverpod, @JsonSerializable, @HiveType, or a `part '*.g.dart'`
+  # directive, so they were dead weight that only slowed down `pub get`
+  # and CI installs. Re-add them if/when the project actually adopts
+  # codegen for one of these.
 
 
 dependency_overrides:
 
-  # Android / Flutter 3.35 compatibility fix
+  # Fix Android AGP / Flutter 3.32 compatibility
 
   app_links: ^6.4.1
 

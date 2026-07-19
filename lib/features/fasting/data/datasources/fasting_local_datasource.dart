@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../domain/entities/fasting_entities.dart';
 
 /// Hive-backed persistence for the Fasting feature, following the same

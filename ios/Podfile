@@ -1,5 +1,10 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '13.0'
+#
+# 15.0, not the Flutter template's default 13.0: current Firebase iOS
+# Cocoapods (pulled in transitively by firebase_core/firebase_auth/
+# firebase_messaging) require a 15.0+ deployment target as of their
+# 12.0.0 Cocoapods release — `pod install` fails outright below that.
+platform :ios, '15.0'
 
 CocoaPods analytics sends network requests synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'

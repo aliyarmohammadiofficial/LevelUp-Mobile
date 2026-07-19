@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../domain/entities/app_notification.dart';
 
 /// Hive-backed persistence for the in-app Notifications feed. Every real

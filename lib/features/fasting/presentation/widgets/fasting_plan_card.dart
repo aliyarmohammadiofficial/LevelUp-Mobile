@@ -68,11 +68,19 @@ class FastingPlanCard extends StatelessWidget {
                 ],
               ),
             ),
-            Radio<bool>(
-              value: true,
+            // `Radio.groupValue` / `Radio.onChanged` were deprecated after
+            // Flutter 3.32 in favor of a `RadioGroup` ancestor. Each card
+            // owns its selection state independently (driven by the
+            // parent's `isSelected`/`onTap`), so it gets its own
+            // single-radio `RadioGroup` rather than sharing one across
+            // sibling cards.
+            RadioGroup<bool>(
               groupValue: isSelected ? true : null,
               onChanged: (_) => onTap(),
-              activeColor: AppColors.primary,
+              child: Radio<bool>(
+                value: true,
+                activeColor: AppColors.primary,
+              ),
             ),
           ],
         ),

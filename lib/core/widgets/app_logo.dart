@@ -18,7 +18,7 @@ class AppLogo extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         CustomPaint(size: Size.square(size), painter: _RingArrowPainter()),
-        Mascot(size: size * 0.62, animate: false),
+        Mascot(size: size * 0.62, animated: false),
       ],
     );
 

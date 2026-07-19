@@ -111,7 +111,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Mascot(pose: MascotPose.wink, size: 52, animate: false),
+                    const Mascot(pose: MascotPose.wink, size: 52, animated: false),
                     const SizedBox(width: AppSpacing.md),
                     Expanded(
                       child: Column(

@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../domain/entities/workout_routine.dart';
 
 /// Hive-backed persistence for Workout.

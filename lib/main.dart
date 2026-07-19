@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/router/app_router.dart';
 import 'core/services/push_notification_service.dart';

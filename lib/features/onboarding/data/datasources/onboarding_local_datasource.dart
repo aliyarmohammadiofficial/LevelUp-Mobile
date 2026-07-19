@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../domain/entities/onboarding_answers.dart';
 
 /// Stores onboarding answers as a plain string-keyed map in a dedicated

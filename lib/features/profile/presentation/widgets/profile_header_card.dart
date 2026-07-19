@@ -41,7 +41,7 @@ class ProfileHeaderCard extends StatelessWidget {
                   : null,
             ),
             child: summary.avatarUrl == null
-                ? const Mascot(pose: MascotPose.wink, size: 52, animate: false)
+                ? const Mascot(pose: MascotPose.wink, size: 52, animated: false)
                 : null,
           ),
           const SizedBox(width: AppSpacing.lg),

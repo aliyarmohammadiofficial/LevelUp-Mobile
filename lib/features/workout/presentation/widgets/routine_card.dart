@@ -67,7 +67,7 @@ class RoutineCard extends StatelessWidget {
                     : AppColors.primarySurface,
                 shape: BoxShape.circle,
               ),
-              child: const Mascot(pose: MascotPose.wink, size: 30, animate: false),
+              child: const Mascot(pose: MascotPose.wink, size: 30, animated: false),
             ),
             const SizedBox(width: AppSpacing.xs),
             Icon(
